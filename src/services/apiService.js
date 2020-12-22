@@ -27,5 +27,5 @@ export function getMovieCredits(movieId) {
 }
 
 export function getMovieReviews(movieId) {
-  return apiService(`${BASE_URL}movie/${movieId}/reviews?api_key=${API_KEY}`);
+  return apiService(`${BASE_URL}/movie/${movieId}/reviews?api_key=${API_KEY}`);
 }

@@ -5,6 +5,7 @@ import Status from '../../services/status';
 import LoaderComponent from '../../components/LoaderComponent';
 import ErrorView from '../../components/ErrorView';
 import Cast from '../Cast';
+import Reviews from '../Reviews';
 
 function MovieDetailsPage() {
   const { movieId } = useParams();
@@ -57,9 +58,17 @@ function MovieDetailsPage() {
             <li>
               <NavLink to={`${url}/cast`}>Cast</NavLink>
             </li>
+            <li>
+              <NavLink to={`${url}/reviews`}>Reviews</NavLink>
+            </li>
           </ul>
+
           <Route path={`${path}/cast`}>
             {status === Status.RESOLVED && <Cast />}
+          </Route>
+
+          <Route path={`${path}/reviews`}>
+            {status === Status.RESOLVED && <Reviews />}
           </Route>
         </>
       )}
