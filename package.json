@@ -1,6 +1,6 @@
 {
-  "name": "name_project",
-  "homepage": "https://yermakovaa.github.io/name_project",
+  "name": "goit-react-hw-04-movies",
+  "homepage": "https://yermakovaa.github.io/goit-react-hw-04-movies",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -10,6 +10,7 @@
     "gh-pages": "^3.1.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "web-vitals": "^0.2.4"
   },
