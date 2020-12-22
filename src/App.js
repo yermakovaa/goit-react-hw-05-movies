@@ -12,15 +12,15 @@ function App() {
       <AppBar />
 
       <Switch>
-        <Route path="/" exact>
+        <Route path="/goit-react-hw-04-movies" exact>
           <HomePage />
         </Route>
 
-        <Route path="/movies" exact>
+        <Route path="/goit-react-hw-04-movies/movies" exact>
           <MoviesPage />
         </Route>
 
-        <Route path="/movies/:movieId">
+        <Route path="/goit-react-hw-04-movies/movies/:movieId">
           <MovieDetailsPage />
         </Route>
       </Switch>
