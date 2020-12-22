@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { NavLink, Route, useParams, useRouteMatch } from 'react-router-dom';
 import * as apiService from '../../services/apiService';
 import Status from '../../services/status';
 import LoaderComponent from '../../components/LoaderComponent';
 import ErrorView from '../../components/ErrorView';
+import Cast from '../Cast';
 
 function MovieDetailsPage() {
   const { movieId } = useParams();
+  const { url, path } = useRouteMatch();
   const [movie, setMovie] = useState(null);
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(Status.IDLE);
@@ -44,12 +46,21 @@ function MovieDetailsPage() {
           <p>User Score: {movie.score} %</p>
           <h3>Overview</h3>
           <p>{movie.overview}</p>
-          <h4>Genres</h4>
+          <h3>Genres</h3>
           <ul>
             {movie.genres.map(genre => (
               <li key={genre.id}>{genre.name}</li>
             ))}
           </ul>
+          <hr />
+          <ul>
+            <li>
+              <NavLink to={`${url}/cast`}>Cast</NavLink>
+            </li>
+          </ul>
+          <Route path={`${path}/cast`}>
+            {status === Status.RESOLVED && <Cast />}
+          </Route>
         </>
       )}
     </main>
