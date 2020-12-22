@@ -12,7 +12,7 @@ function App() {
       <AppBar />
 
       <Switch>
-        <Route path="/goit-react-hw-04-movies" exact>
+        <Route path="/goit-react-hw-04-movies/" exact>
           <HomePage />
         </Route>
 

@@ -40,7 +40,7 @@ function HomePage() {
         <ul>
           {movies.map(movie => (
             <li key={movie.id}>
-              <Link to={`${url}/movies/${movie.id}`}>{movie.title}</Link>
+              <Link to={`${url}movies/${movie.id}`}>{movie.title}</Link>
             </li>
           ))}
         </ul>

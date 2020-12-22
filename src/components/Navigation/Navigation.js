@@ -5,7 +5,7 @@ const Navigation = () => (
   <nav>
     <NavLink
       exact
-      to="/goit-react-hw-04-movies"
+      to="/goit-react-hw-04-movies/"
       className={s.link}
       activeClassName={s.activeLink}
     >
