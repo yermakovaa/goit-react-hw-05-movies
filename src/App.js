@@ -4,6 +4,7 @@ import Container from './components/Container';
 import AppBar from './components/AppBar';
 import HomePage from './views/HomePage';
 import MoviesPage from './views/MoviesPage';
+import MovieDetailsPage from './views/MovieDetailsPage';
 
 function App() {
   return (
@@ -15,8 +16,12 @@ function App() {
           <HomePage />
         </Route>
 
-        <Route path="/movies">
+        <Route path="/movies" exact>
           <MoviesPage />
+        </Route>
+
+        <Route path="/movies/:movieId">
+          <MovieDetailsPage />
         </Route>
       </Switch>
       <ToastContainer autoClose={3700} />

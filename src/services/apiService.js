@@ -19,11 +19,11 @@ export function searchMovies(query) {
 }
 
 export function getMovieDetails(movieId) {
-  return apiService(`${BASE_URL}movie/${movieId}?api_key=${API_KEY}`);
+  return apiService(`${BASE_URL}/movie/${movieId}?api_key=${API_KEY}`);
 }
 
 export function getMovieCredits(movieId) {
-  return apiService(`${BASE_URL}movie/${movieId}/credits?api_key=${API_KEY}`);
+  return apiService(`${BASE_URL}/movie/${movieId}/credits?api_key=${API_KEY}`);
 }
 
 export function getMovieReviews(movieId) {
