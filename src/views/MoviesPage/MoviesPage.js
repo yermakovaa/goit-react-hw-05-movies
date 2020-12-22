@@ -4,36 +4,52 @@ import * as apiService from '../../services/apiService';
 import Status from '../../services/status';
 import LoaderComponent from '../../components/LoaderComponent';
 import ErrorView from '../../components/ErrorView';
+import SearchBar from '../../components/SearchBar';
 // import propTypes from 'prop-types';
-import s from './HomePage.module.css';
+// import s from './MoviesPage.module.css';
 
-function HomePage() {
+function MoviesPage() {
   const { url } = useRouteMatch();
+  const [query, setQuery] = useState('');
   const [movies, setMovies] = useState(null);
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(Status.IDLE);
 
   useEffect(() => {
+    if (!query) return;
     setStatus(Status.PENDING);
     apiService
-      .getTrending()
+      .searchMovies(query)
       .then(({ results }) => {
+        if (results.length === 0) {
+          setError(`No results were found for ${query}!`);
+          setStatus(Status.REJECTED);
+          return;
+        }
+
         setMovies(results);
         setStatus(Status.RESOLVED);
       })
       .catch(error => {
-        setError(error);
+        setError('Something went wrong. Try again.');
         setStatus(Status.REJECTED);
       });
-  }, []);
+  }, [query]);
+
+  const searchImages = newSearch => {
+    setQuery(newSearch);
+    setMovies(null);
+    setError(null);
+    setStatus(Status.IDLE);
+  };
 
   return (
     <main>
-      <h1 className={s.title}>Trending today</h1>
+      <SearchBar onHandleSubmit={searchImages} />
 
       {status === Status.PENDING && <LoaderComponent />}
 
-      {status === Status.REJECTED && <ErrorView message={error.message} />}
+      {status === Status.REJECTED && <ErrorView message={error} />}
 
       {status === Status.RESOLVED && (
         <ul>
@@ -48,8 +64,7 @@ function HomePage() {
   );
 }
 
-// HomePage.propTypes = {
+// MoviesPage.propTypes = {
 //   params: propTypes.
 // }
-
-export default HomePage;
+export default MoviesPage;
