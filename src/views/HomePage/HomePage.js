@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import * as apiService from '../../services/apiService';
 import Status from '../../services/status';
 import LoaderComponent from '../../components/LoaderComponent';
@@ -8,7 +8,6 @@ import ErrorView from '../../components/ErrorView';
 import s from './HomePage.module.css';
 
 function HomePage() {
-  const { url } = useRouteMatch();
   const [movies, setMovies] = useState(null);
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(Status.IDLE);
@@ -40,7 +39,7 @@ function HomePage() {
         <ul>
           {movies.map(movie => (
             <li key={movie.id}>
-              <Link to={`${url}movies/${movie.id}`}>{movie.title}</Link>
+              <Link to={`movies/${movie.id}`}>{movie.title}</Link>
             </li>
           ))}
         </ul>
