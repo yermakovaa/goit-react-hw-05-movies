@@ -5,8 +5,8 @@ import Status from '../../services/status';
 import LoaderComponent from '../../components/LoaderComponent';
 import ErrorView from '../../components/ErrorView';
 import SearchBar from '../../components/SearchBar';
-// import propTypes from 'prop-types';
-// import s from './MoviesPage.module.css';
+import noImageFound from '../../img/noimagefound.jpg';
+import s from './MoviesPage.module.css';
 
 function MoviesPage() {
   const { url } = useRouteMatch();
@@ -45,7 +45,7 @@ function MoviesPage() {
   };
 
   return (
-    <main>
+    <main className={s.main}>
       <SearchBar onHandleSubmit={searchImages} />
 
       {status === Status.PENDING && <LoaderComponent />}
@@ -53,10 +53,21 @@ function MoviesPage() {
       {status === Status.REJECTED && <ErrorView message={error} />}
 
       {status === Status.RESOLVED && (
-        <ul>
+        <ul className={s.moviesList}>
           {movies.map(movie => (
-            <li key={movie.id}>
-              <Link to={`${url}/${movie.id}`}>{movie.title}</Link>
+            <li key={movie.id} className={s.moviesItem}>
+              <Link to={`${url}/${movie.id}`}>
+                <img
+                  src={
+                    movie.poster_path
+                      ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+                      : noImageFound
+                  }
+                  alt={movie.title}
+                  className={s.poster}
+                />
+              </Link>
+              <span className={s.movieTitle}>{movie.title}</span>
             </li>
           ))}
         </ul>
@@ -65,7 +76,4 @@ function MoviesPage() {
   );
 }
 
-// MoviesPage.propTypes = {
-//   params: propTypes.
-// }
 export default MoviesPage;

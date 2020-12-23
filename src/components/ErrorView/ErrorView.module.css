@@ -1,7 +1,9 @@
 .wrapper {
   margin: 0 auto;
-  padding: 20px 0;
-  text-align: center;
+}
+
+.img {
+  border-radius: 5px;
 }
 
 .text {

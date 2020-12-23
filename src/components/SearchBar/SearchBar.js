@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import propTypes from 'prop-types';
+import propTypes from 'prop-types';
 import s from './SearchBar.module.css';
 
 function SearchBar({ onHandleSubmit }) {
@@ -24,7 +24,7 @@ function SearchBar({ onHandleSubmit }) {
         value={query}
         autoComplete="off"
         autoFocus
-        placeholder="Search images and photos"
+        placeholder="Search movies..."
         onChange={({ target }) => setQuery(target.value)}
       />
       <button type="submit" className={s.btn}>
@@ -34,7 +34,8 @@ function SearchBar({ onHandleSubmit }) {
   );
 }
 
-// SearchBar.propTypes = {
-//   params: propTypes.
-// }
+SearchBar.propTypes = {
+  onHandleSubmit: propTypes.func.isRequired,
+};
+
 export default SearchBar;

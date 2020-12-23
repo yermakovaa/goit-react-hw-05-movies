@@ -4,6 +4,7 @@ import * as apiService from '../../services/apiService';
 import Status from '../../services/status';
 import LoaderComponent from '../../components/LoaderComponent';
 import ErrorView from '../../components/ErrorView';
+import s from './Reviews.module.css';
 
 function Reviews() {
   const { movieId } = useParams();
@@ -34,9 +35,9 @@ function Reviews() {
       {status === Status.RESOLVED && (
         <ul>
           {reviews.map(review => (
-            <li key={review.id}>
-              <h4>Author: {review.author}</h4>
-              <p>{review.content}</p>
+            <li key={review.id} className={s.item}>
+              <h4 className={s.author}>Author: {review.author}</h4>
+              <p className={s.content}>{review.content}</p>
             </li>
           ))}
         </ul>

@@ -1,11 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { NavLink, Route, useParams, useRouteMatch } from 'react-router-dom';
 import * as apiService from '../../services/apiService';
 import Status from '../../services/status';
 import LoaderComponent from '../../components/LoaderComponent';
 import ErrorView from '../../components/ErrorView';
-import Cast from '../Cast';
-import Reviews from '../Reviews';
+import s from './MovieDetailsPage.module.css';
+
+const Cast = lazy(() =>
+  import('../Cast' /* webpackChunkName: "cast-subview"*/),
+);
+
+const Reviews = lazy(() =>
+  import('../Reviews' /* webpackChunkName: "reviews-subview"*/),
+);
 
 function MovieDetailsPage() {
   const { movieId } = useParams();
@@ -35,41 +42,61 @@ function MovieDetailsPage() {
   }, [movieId]);
 
   return (
-    <main>
+    <main className={s.main}>
       {status === Status.PENDING && <LoaderComponent />}
 
       {status === Status.REJECTED && <ErrorView message={error} />}
 
       {status === Status.RESOLVED && (
         <>
-          <img src={movie.src} alt={movie.title} />
-          <h2>{movie.title}</h2>
-          <p>User Score: {movie.score} %</p>
-          <h3>Overview</h3>
-          <p>{movie.overview}</p>
-          <h3>Genres</h3>
-          <ul>
-            {movie.genres.map(genre => (
-              <li key={genre.id}>{genre.name}</li>
-            ))}
-          </ul>
-          <hr />
-          <ul>
+          <div className={s.wrapper}>
+            <img className={s.poster} src={movie.src} alt={movie.title} />
+            <div>
+              <h2 className={s.movieTitle}>{movie.title}</h2>
+              <p className={s.info}>User Score: {movie.score} %</p>
+              <h3 className={s.title}>Overview</h3>
+              <p className={s.info}>{movie.overview}</p>
+              <h3 className={s.title}>Genres</h3>
+              <ul>
+                {movie.genres.map(genre => (
+                  <li key={genre.id} className={s.info}>
+                    {genre.name}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <ul className={s.nav}>
             <li>
-              <NavLink to={`${url}/cast`}>Cast</NavLink>
+              <NavLink
+                to={`${url}/cast`}
+                className={s.link}
+                activeClassName={s.activeLink}
+              >
+                Cast
+              </NavLink>
             </li>
             <li>
-              <NavLink to={`${url}/reviews`}>Reviews</NavLink>
+              <NavLink
+                to={`${url}/reviews`}
+                className={s.link}
+                activeClassName={s.activeLink}
+              >
+                Reviews
+              </NavLink>
             </li>
           </ul>
 
-          <Route path={`${path}/cast`}>
-            {status === Status.RESOLVED && <Cast />}
-          </Route>
+          <Suspense fallback={<LoaderComponent />}>
+            <Route path={`${path}/cast`}>
+              {status === Status.RESOLVED && <Cast />}
+            </Route>
 
-          <Route path={`${path}/reviews`}>
-            {status === Status.RESOLVED && <Reviews />}
-          </Route>
+            <Route path={`${path}/reviews`}>
+              {status === Status.RESOLVED && <Reviews />}
+            </Route>
+          </Suspense>
         </>
       )}
     </main>

@@ -4,6 +4,8 @@ import * as apiService from '../../services/apiService';
 import Status from '../../services/status';
 import LoaderComponent from '../../components/LoaderComponent';
 import ErrorView from '../../components/ErrorView';
+import noImageFound from '../../img/noimagefound.jpg';
+import s from './Cast.module.css';
 
 function Cast() {
   const { movieId } = useParams();
@@ -32,15 +34,20 @@ function Cast() {
       {status === Status.REJECTED && <ErrorView message={error} />}
 
       {status === Status.RESOLVED && (
-        <ul>
+        <ul className={s.cast}>
           {authors.map(author => (
-            <li key={author.id}>
+            <li key={author.id} className={s.item}>
               <img
-                src={`https://image.tmdb.org/t/p/w500/${author.profile_path}`}
+                src={
+                  author.profile_path
+                    ? `https://image.tmdb.org/t/p/w500/${author.profile_path}`
+                    : noImageFound
+                }
                 alt={author.original_name}
+                className={s.photo}
               />
-              <h4>{author.original_name}</h4>
-              <p>{author.character}</p>
+              <h4 className={s.name}>{author.original_name}</h4>
+              <p className={s.character}>{author.character}</p>
             </li>
           ))}
         </ul>
