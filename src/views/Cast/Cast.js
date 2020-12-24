@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import * as apiService from '../../services/apiService';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Status from '../../services/status';
 import LoaderComponent from '../../components/LoaderComponent';
 import ErrorView from '../../components/ErrorView';
@@ -17,6 +19,11 @@ function Cast() {
     apiService
       .getMovieCredits(movieId)
       .then(({ cast }) => {
+        if (cast.length === 0) {
+          toast.error('💩 No results!');
+          setStatus(Status.IDLE);
+          return;
+        }
         setAuthors(cast);
         setStatus(Status.RESOLVED);
       })

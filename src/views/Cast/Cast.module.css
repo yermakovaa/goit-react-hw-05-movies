@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  text-align: center;
   min-height: 450px;
   margin: -15px;
 }
@@ -13,7 +14,6 @@
 
 .photo {
   height: 300px;
-  /* margin-bottom: 5px; */
   border-radius: 5px;
   overflow: hidden;
   object-fit: cover;

@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import * as apiService from '../../services/apiService';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Status from '../../services/status';
 import LoaderComponent from '../../components/LoaderComponent';
 import ErrorView from '../../components/ErrorView';
@@ -16,6 +18,11 @@ function Reviews() {
     apiService
       .getMovieReviews(movieId)
       .then(({ results }) => {
+        if (results.length === 0) {
+          toast.error("💩 We don't have any reviews for this movie.");
+          setStatus(Status.IDLE);
+          return;
+        }
         setReviews(results);
         setStatus(Status.RESOLVED);
       })

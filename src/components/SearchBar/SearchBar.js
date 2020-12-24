@@ -12,7 +12,7 @@ function SearchBar({ onHandleSubmit }) {
     if (query.trim() === '') {
       return toast.info('😱 Please enter a value for search movies!');
     }
-    onHandleSubmit(query);
+    onHandleSubmit(query.trim());
     setQuery('');
   };
 

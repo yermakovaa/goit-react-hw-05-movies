@@ -1,5 +1,12 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
-import { NavLink, Route, useParams, useRouteMatch } from 'react-router-dom';
+import {
+  NavLink,
+  Route,
+  useParams,
+  useRouteMatch,
+  useHistory,
+  useLocation,
+} from 'react-router-dom';
 import * as apiService from '../../services/apiService';
 import Status from '../../services/status';
 import LoaderComponent from '../../components/LoaderComponent';
@@ -15,6 +22,8 @@ const Reviews = lazy(() =>
 );
 
 function MovieDetailsPage() {
+  const history = useHistory();
+  const location = useLocation();
   const { movieId } = useParams();
   const { url, path } = useRouteMatch();
   const [movie, setMovie] = useState(null);
@@ -41,8 +50,20 @@ function MovieDetailsPage() {
       });
   }, [movieId]);
 
+  const handleGoBack = () => {
+    if (!location.state) {
+      history.push('/', { from: 'MovieDetailsPage' });
+      return;
+    }
+    history.goBack();
+  };
+
   return (
     <main className={s.main}>
+      <button onClick={handleGoBack} type="button" className={s.btn}>
+        &#9754; Go back
+      </button>
+
       {status === Status.PENDING && <LoaderComponent />}
 
       {status === Status.REJECTED && <ErrorView message={error} />}

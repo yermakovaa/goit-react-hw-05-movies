@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link, useRouteMatch, useHistory, useLocation } from 'react-router-dom';
 import * as apiService from '../../services/apiService';
 import Status from '../../services/status';
 import LoaderComponent from '../../components/LoaderComponent';
@@ -9,11 +9,22 @@ import noImageFound from '../../img/noimagefound.jpg';
 import s from './MoviesPage.module.css';
 
 function MoviesPage() {
+  const history = useHistory();
+  const location = useLocation();
   const { url } = useRouteMatch();
   const [query, setQuery] = useState('');
   const [movies, setMovies] = useState(null);
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(Status.IDLE);
+
+  useEffect(() => {
+    if (location.search === '') {
+      return;
+    }
+
+    const newSearch = new URLSearchParams(location.search).get('query');
+    setQuery(newSearch);
+  }, [location.search]);
 
   useEffect(() => {
     if (!query) return;
@@ -38,10 +49,12 @@ function MoviesPage() {
   }, [query]);
 
   const searchImages = newSearch => {
+    if (query === newSearch) return;
     setQuery(newSearch);
     setMovies(null);
     setError(null);
     setStatus(Status.IDLE);
+    history.push({ ...location, search: `query=${newSearch}` });
   };
 
   return (

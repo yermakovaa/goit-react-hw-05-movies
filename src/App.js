@@ -40,7 +40,7 @@ function App() {
         </Switch>
       </Suspense>
 
-      <ToastContainer autoClose={3700} />
+      <ToastContainer autoClose={3700} position="bottom-center" />
     </Container>
   );
 }
