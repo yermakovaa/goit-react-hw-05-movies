@@ -54,10 +54,10 @@ function MovieDetailsPage() {
 
   const handleGoBack = () => {
     if (!location.state) {
-      history.push('/', { from: 'MovieDetailsPage' });
+      history.push('/');
       return;
     }
-    history.goBack();
+    history.push({ ...location.state.from });
   };
 
   return (
@@ -92,7 +92,10 @@ function MovieDetailsPage() {
           <ul className={s.nav}>
             <li>
               <NavLink
-                to={`${url}/cast`}
+                to={{
+                  pathname: `${url}/cast`,
+                  state: { from: location.state ? location.state.from : '/' },
+                }}
                 className={s.link}
                 activeClassName={s.activeLink}
               >
@@ -101,7 +104,10 @@ function MovieDetailsPage() {
             </li>
             <li>
               <NavLink
-                to={`${url}/reviews`}
+                to={{
+                  pathname: `${url}/reviews`,
+                  state: { from: location.state ? location.state.from : '/' },
+                }}
                 className={s.link}
                 activeClassName={s.activeLink}
               >
