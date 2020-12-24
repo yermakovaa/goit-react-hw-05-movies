@@ -69,7 +69,12 @@ function MoviesPage() {
         <ul className={s.moviesList}>
           {movies.map(movie => (
             <li key={movie.id} className={s.moviesItem}>
-              <Link to={`${url}/${movie.id}`}>
+              <Link
+                to={{
+                  pathname: `${url}/${movie.id}`,
+                  state: { from: location },
+                }}
+              >
                 <img
                   src={
                     movie.poster_path

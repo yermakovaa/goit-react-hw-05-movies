@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import * as apiService from '../../services/apiService';
 import Status from '../../services/status';
 import LoaderComponent from '../../components/LoaderComponent';
@@ -11,6 +11,7 @@ function HomePage() {
   const [movies, setMovies] = useState(null);
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(Status.IDLE);
+  const location = useLocation();
 
   useEffect(() => {
     setStatus(Status.PENDING);
@@ -39,7 +40,12 @@ function HomePage() {
         <ul className={s.moviesList}>
           {movies.map(movie => (
             <li key={movie.id} className={s.moviesItem}>
-              <Link to={`movies/${movie.id}`}>
+              <Link
+                to={{
+                  pathname: `movies/${movie.id}`,
+                  state: { from: location },
+                }}
+              >
                 <img
                   src={
                     movie.poster_path
