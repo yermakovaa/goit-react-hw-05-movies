@@ -49,7 +49,7 @@ function MovieDetailsPage() {
       })
       .catch(error => {
         console.log(error);
-        setError('Something went wrong. Try again.');
+        setError(error.message);
         setStatus(Status.REJECTED);
       });
   }, [movieId]);
