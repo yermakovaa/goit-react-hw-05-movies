@@ -8,6 +8,7 @@ import {
   useLocation,
 } from 'react-router-dom';
 import * as apiService from '../../services/apiService';
+import { addBackToTop } from 'vanilla-back-to-top';
 import Status from '../../services/status';
 import LoaderComponent from '../../components/LoaderComponent';
 import ErrorView from '../../components/ErrorView';
@@ -30,8 +31,6 @@ function MovieDetailsPage() {
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(Status.IDLE);
 
-  console.log(location);
-
   useEffect(() => {
     apiService
       .getMovieDetails(movieId)
@@ -44,6 +43,9 @@ function MovieDetailsPage() {
           genres,
         });
         setStatus(Status.RESOLVED);
+        addBackToTop({
+          backgroundColor: '#fa7584',
+        });
       })
       .catch(error => {
         console.log(error);

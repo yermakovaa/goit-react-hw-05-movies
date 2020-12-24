@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useRouteMatch, useHistory, useLocation } from 'react-router-dom';
 import * as apiService from '../../services/apiService';
+import { addBackToTop } from 'vanilla-back-to-top';
 import Status from '../../services/status';
 import LoaderComponent from '../../components/LoaderComponent';
 import ErrorView from '../../components/ErrorView';
@@ -40,6 +41,9 @@ function MoviesPage() {
 
         setMovies(results);
         setStatus(Status.RESOLVED);
+        addBackToTop({
+          backgroundColor: '#fa7584',
+        });
       })
       .catch(error => {
         console.log(error);
