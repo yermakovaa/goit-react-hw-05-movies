@@ -2,16 +2,29 @@
   padding: 40px 0;
 }
 
-.wrapper {
-  display: flex;
-  text-align: left;
+@media screen and (min-width: 768px) {
+  .wrapper {
+    display: flex;
+    text-align: left;
+  }
 }
 
 .poster {
   max-width: 426px;
   height: 514px;
-  margin-right: 30px;
+  margin-bottom: 20px;
   border-radius: 5px;
+}
+
+@media screen and (min-width: 768px) {
+  .poster {
+    margin-right: 30px;
+    margin-bottom: 0;
+  }
+}
+
+.description {
+  text-align: left;
 }
 
 .movieTitle {
@@ -21,19 +34,24 @@
   line-height: 1.1667;
   letter-spacing: 0.03em;
   text-shadow: var(--textShadow);
+  text-align: center;
 }
 
 .info {
+  margin-bottom: 30px;
   font-size: 18px;
-  line-height: 1.67;
   color: #c3beba;
 }
 
+.genre {
+  composes: info;
+  list-style: inside;
+}
+
 .title {
-  margin: 10px 0;
   font-family: 'Bangers', sans-serif;
   letter-spacing: 0.2em;
-  color: var(--secondaryTextColor);
+  color: var(--accentColor);
 }
 
 .nav {

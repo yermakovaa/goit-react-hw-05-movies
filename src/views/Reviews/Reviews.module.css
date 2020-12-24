@@ -7,7 +7,7 @@
   font-family: 'Bangers', sans-serif;
   font-size: 18px;
   letter-spacing: 0.2em;
-  color: var(--secondaryTextColor);
+  color: var(--accentColor);
 }
 
 .content {

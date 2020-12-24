@@ -7,7 +7,7 @@ function LoaderComponent() {
     <div className={s.overlay}>
       <Loader
         type="Puff"
-        color="#ff6b08"
+        color="#fa7584"
         height={100}
         width={100}
         timeout={0}

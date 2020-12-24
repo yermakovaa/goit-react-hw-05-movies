@@ -37,9 +37,9 @@
 
 .movieTitle {
   display: block;
-  margin-top: 12px;
+  margin-top: 5px;
   font-family: 'Bangers', sans-serif;
   font-size: 18px;
   letter-spacing: 0.14em;
-  color: var(--secondaryTextColor);
+  color: var(--accentColor);
 }

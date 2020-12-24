@@ -28,7 +28,7 @@ function MovieDetailsPage() {
         setMovie({
           src: `https://image.tmdb.org/t/p/w500/${poster_path}`,
           title: original_title,
-          score: popularity.toFixed(0),
+          score: popularity.toFixed(1),
           overview,
           genres,
         });
@@ -51,17 +51,16 @@ function MovieDetailsPage() {
         <>
           <div className={s.wrapper}>
             <img className={s.poster} src={movie.src} alt={movie.title} />
-            <div>
+            <div className={s.description}>
               <h2 className={s.movieTitle}>{movie.title}</h2>
-              <p className={s.info}>User Score: {movie.score} %</p>
+              <h3 className={s.title}>User Score</h3>
+              <p className={s.info}>{movie.score}</p>
               <h3 className={s.title}>Overview</h3>
               <p className={s.info}>{movie.overview}</p>
               <h3 className={s.title}>Genres</h3>
-              <ul>
+              <ul className={s.genre}>
                 {movie.genres.map(genre => (
-                  <li key={genre.id} className={s.info}>
-                    {genre.name}
-                  </li>
+                  <li key={genre.id}>{genre.name}</li>
                 ))}
               </ul>
             </div>
