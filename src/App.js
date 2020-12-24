@@ -19,6 +19,10 @@ const MovieDetailsPage = lazy(() =>
   ),
 );
 
+const NotFoundView = lazy(() =>
+  import('./views/NotFoundView' /* webpackChunkName: "not-found-view" */),
+);
+
 function App() {
   return (
     <Container>
@@ -36,6 +40,10 @@ function App() {
 
           <Route path="/movies/:movieId">
             <MovieDetailsPage />
+          </Route>
+
+          <Route>
+            <NotFoundView />
           </Route>
         </Switch>
       </Suspense>
