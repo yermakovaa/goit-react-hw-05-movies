@@ -15,7 +15,7 @@
   text-align: justify;
   font-family: 'Lobster Two', sans-serif;
   letter-spacing: 0.1em;
-  color: #c3beba;
+  color: var(--secondaryTextColor);
 }
 
 .content::first-letter {

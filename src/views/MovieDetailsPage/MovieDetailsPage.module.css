@@ -55,7 +55,13 @@
 
 .genre {
   composes: info;
-  list-style: inside;
+  display: flex;
+  align-items: center;
+}
+
+.genre li:not(:last-child)::after {
+  content: ',';
+  margin-right: 5px;
 }
 
 .title {

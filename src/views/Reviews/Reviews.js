@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import ShowMore from 'react-simple-show-more';
 import * as apiService from '../../services/apiService';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -44,7 +45,19 @@ function Reviews() {
           {reviews.map(review => (
             <li key={review.id} className={s.item}>
               <h4 className={s.author}>Author: {review.author}</h4>
-              <p className={s.content}>{review.content}</p>
+              <p className={s.content}>
+                <ShowMore
+                  text={review.content}
+                  length={1000}
+                  showMoreLabel=" Show more >>"
+                  showLessLabel=" Show less <<"
+                  style={{
+                    cursor: 'pointer',
+                    color: '#fa7584',
+                    fontWeight: 'bold',
+                  }}
+                />
+              </p>
             </li>
           ))}
         </ul>
