@@ -3,7 +3,6 @@
 }
 
 .title {
-  margin-bottom: 20px;
   font-weight: 700;
   font-size: 40px;
   letter-spacing: 0.03em;
@@ -14,6 +13,7 @@
   justify-content: center;
   flex-wrap: wrap;
   margin: -15px;
+  padding: 30px 0;
 }
 
 .moviesItem {
@@ -42,4 +42,9 @@
   font-size: 18px;
   letter-spacing: 0.14em;
   color: var(--accentColor);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
 }

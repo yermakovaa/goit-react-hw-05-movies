@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import * as apiService from '../../services/apiService';
 import { addBackToTop } from 'vanilla-back-to-top';
+import { Pagination } from '@material-ui/lab';
+import useStyles from '../../services/stylesPagination';
 import Status from '../../services/status';
 import LoaderComponent from '../../components/LoaderComponent';
 import ErrorView from '../../components/ErrorView';
@@ -9,17 +11,23 @@ import noImageFound from '../../img/noimagefound.jpg';
 import s from './HomePage.module.css';
 
 function HomePage() {
+  const classes = useStyles();
+  const history = useHistory();
   const [movies, setMovies] = useState(null);
+  const [totalPage, setTotalPage] = useState(0);
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(Status.IDLE);
   const location = useLocation();
 
+  const page = new URLSearchParams(location.search).get('page') ?? 1;
+
   useEffect(() => {
     setStatus(Status.PENDING);
     apiService
-      .getTrending()
-      .then(({ results }) => {
+      .getTrending(page)
+      .then(({ results, total_pages }) => {
         setMovies(results);
+        setTotalPage(total_pages);
         setStatus(Status.RESOLVED);
         addBackToTop({
           backgroundColor: '#fa7584',
@@ -30,7 +38,11 @@ function HomePage() {
         setError('Something went wrong. Try again.');
         setStatus(Status.REJECTED);
       });
-  }, []);
+  }, [page]);
+
+  const onHandlePage = (event, page) => {
+    history.push({ ...location, search: `page=${page}` });
+  };
 
   return (
     <main className={s.main}>
@@ -41,29 +53,42 @@ function HomePage() {
       {status === Status.REJECTED && <ErrorView message={error.message} />}
 
       {status === Status.RESOLVED && (
-        <ul className={s.moviesList}>
-          {movies.map(movie => (
-            <li key={movie.id} className={s.moviesItem}>
-              <Link
-                to={{
-                  pathname: `movies/${movie.id}`,
-                  state: { from: location },
-                }}
-              >
-                <img
-                  src={
-                    movie.poster_path
-                      ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
-                      : noImageFound
-                  }
-                  alt={movie.title}
-                  className={s.poster}
-                />
-              </Link>
-              <span className={s.movieTitle}>{movie.title}</span>
-            </li>
-          ))}
-        </ul>
+        <>
+          <ul className={s.moviesList}>
+            {movies.map(movie => (
+              <li key={movie.id} className={s.moviesItem}>
+                <Link
+                  to={{
+                    pathname: `movies/${movie.id}`,
+                    state: { from: location },
+                  }}
+                >
+                  <img
+                    src={
+                      movie.poster_path
+                        ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+                        : noImageFound
+                    }
+                    alt={movie.title}
+                    className={s.poster}
+                  />
+                </Link>
+                <span className={s.movieTitle}>{movie.title}</span>
+              </li>
+            ))}
+          </ul>
+          {totalPage > 1 && (
+            <Pagination
+              className={classes.root}
+              count={totalPage}
+              onChange={onHandlePage}
+              page={Number(page)}
+              showFirstButton
+              showLastButton
+              size="large"
+            />
+          )}
+        </>
       )}
     </main>
   );

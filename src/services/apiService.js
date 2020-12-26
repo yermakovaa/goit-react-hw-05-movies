@@ -10,13 +10,15 @@ async function apiService(url = '', config = {}) {
       );
 }
 
-export function getTrending() {
-  return apiService(`${BASE_URL}/trending/movie/day?api_key=${API_KEY}`);
+export function getTrending(page) {
+  return apiService(
+    `${BASE_URL}/trending/movie/day?api_key=${API_KEY}&page=${page}`,
+  );
 }
 
-export function searchMovies(query) {
+export function searchMovies(query, page) {
   return apiService(
-    `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}`,
+    `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}&page=${page}`,
   );
 }
 

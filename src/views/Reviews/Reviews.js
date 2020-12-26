@@ -48,7 +48,7 @@ function Reviews() {
               <p className={s.content}>
                 <ShowMore
                   text={review.content}
-                  length={1000}
+                  length={700}
                   showMoreLabel=" Show more >>"
                   showLessLabel=" Show less <<"
                   style={{
