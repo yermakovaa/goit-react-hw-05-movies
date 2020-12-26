@@ -1,23 +1,22 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useHistory } from 'react-router-dom';
 import * as apiService from '../../services/apiService';
-import { addBackToTop } from 'vanilla-back-to-top';
 import { Pagination } from '@material-ui/lab';
 import useStyles from '../../services/stylesPagination';
 import Status from '../../services/status';
 import LoaderComponent from '../../components/LoaderComponent';
 import ErrorView from '../../components/ErrorView';
-import noImageFound from '../../img/noimagefound.jpg';
+import noImageFound from '../../img/no-image.jpg';
 import s from './HomePage.module.css';
 
 function HomePage() {
   const classes = useStyles();
   const history = useHistory();
+  const location = useLocation();
   const [movies, setMovies] = useState(null);
   const [totalPage, setTotalPage] = useState(0);
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(Status.IDLE);
-  const location = useLocation();
 
   const page = new URLSearchParams(location.search).get('page') ?? 1;
 
@@ -29,9 +28,6 @@ function HomePage() {
         setMovies(results);
         setTotalPage(total_pages);
         setStatus(Status.RESOLVED);
-        addBackToTop({
-          backgroundColor: '#fa7584',
-        });
       })
       .catch(error => {
         console.log(error);

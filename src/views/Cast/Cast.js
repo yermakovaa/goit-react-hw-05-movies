@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import * as apiService from '../../services/apiService';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import * as apiService from '../../services/apiService';
 import Status from '../../services/status';
 import LoaderComponent from '../../components/LoaderComponent';
 import ErrorView from '../../components/ErrorView';
-import noImageFound from '../../img/noimagefound.jpg';
+import noImageFound from '../../img/no-image.jpg';
 import s from './Cast.module.css';
 
 function Cast() {

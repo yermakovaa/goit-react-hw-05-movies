@@ -8,10 +8,10 @@ import {
   useLocation,
 } from 'react-router-dom';
 import * as apiService from '../../services/apiService';
-import { addBackToTop } from 'vanilla-back-to-top';
 import Status from '../../services/status';
 import LoaderComponent from '../../components/LoaderComponent';
 import ErrorView from '../../components/ErrorView';
+import noImageFound from '../../img/no-image.jpg';
 import s from './MovieDetailsPage.module.css';
 
 const Cast = lazy(() =>
@@ -36,16 +36,15 @@ function MovieDetailsPage() {
       .getMovieDetails(movieId)
       .then(({ poster_path, original_title, popularity, overview, genres }) => {
         setMovie({
-          src: `https://image.tmdb.org/t/p/w500/${poster_path}`,
+          src: poster_path
+            ? `https://image.tmdb.org/t/p/w500/${poster_path}`
+            : `${noImageFound}`,
           title: original_title,
           score: popularity.toFixed(1),
           overview,
           genres,
         });
         setStatus(Status.RESOLVED);
-        addBackToTop({
-          backgroundColor: '#fa7584',
-        });
       })
       .catch(error => {
         console.log(error);

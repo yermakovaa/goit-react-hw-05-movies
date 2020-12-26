@@ -30,6 +30,8 @@ export function getMovieCredits(movieId) {
   return apiService(`${BASE_URL}/movie/${movieId}/credits?api_key=${API_KEY}`);
 }
 
-export function getMovieReviews(movieId) {
-  return apiService(`${BASE_URL}/movie/${movieId}/reviews?api_key=${API_KEY}`);
+export function getMovieReviews(movieId, page) {
+  return apiService(
+    `${BASE_URL}/movie/${movieId}/reviews?api_key=${API_KEY}&page=${page}`,
+  );
 }
