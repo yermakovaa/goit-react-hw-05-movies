@@ -54,11 +54,7 @@ function MovieDetailsPage() {
   }, [movieId]);
 
   const handleGoBack = () => {
-    if (!location.state) {
-      history.push('/');
-      return;
-    }
-    history.push({ ...location.state.from });
+    history.push(location?.state?.from ?? '/');
   };
 
   return (
@@ -95,7 +91,7 @@ function MovieDetailsPage() {
               <NavLink
                 to={{
                   pathname: `${url}/cast`,
-                  state: { from: location.state ? location.state.from : '/' },
+                  state: { from: location?.state?.from ?? '/' },
                 }}
                 className={s.link}
                 activeClassName={s.activeLink}
@@ -107,7 +103,7 @@ function MovieDetailsPage() {
               <NavLink
                 to={{
                   pathname: `${url}/reviews`,
-                  state: { from: location.state ? location.state.from : '/' },
+                  state: { from: location?.state?.from ?? '/' },
                 }}
                 className={s.link}
                 activeClassName={s.activeLink}

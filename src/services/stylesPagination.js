@@ -16,6 +16,9 @@ const useStyles = makeStyles({
     '& .MuiPaginationItem-page.Mui-selected:hover, & .MuiPaginationItem-page.Mui-selected.Mui-focusVisible': {
       opacity: '1',
     },
+    '& .MuiPagination-ul': {
+      justifyContent: 'center',
+    },
   },
 });
 
