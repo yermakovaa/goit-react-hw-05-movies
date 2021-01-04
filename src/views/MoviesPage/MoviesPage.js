@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useRouteMatch, useHistory, useLocation } from 'react-router-dom';
 import * as apiService from '../../services/apiService';
+import slugify from 'slugify';
 import { Pagination } from '@material-ui/lab';
 import useStyles from '../../services/stylesPagination';
 import Status from '../../services/status';
@@ -9,6 +10,8 @@ import ErrorView from '../../components/ErrorView';
 import SearchBar from '../../components/SearchBar';
 import noImageFound from '../../img/no-image.jpg';
 import s from './MoviesPage.module.css';
+
+const makeSlug = string => slugify(string, { lower: true });
 
 function MoviesPage() {
   const classes = useStyles();
@@ -83,7 +86,9 @@ function MoviesPage() {
               <li key={movie.id} className={s.moviesItem}>
                 <Link
                   to={{
-                    pathname: `${url}/${movie.id}`,
+                    pathname: `${url}/${makeSlug(
+                      `${movie.title} ${movie.id}`,
+                    )}`,
                     state: { from: location },
                   }}
                 >

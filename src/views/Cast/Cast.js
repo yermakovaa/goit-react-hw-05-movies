@@ -9,7 +9,8 @@ import noImageFound from '../../img/no-image.jpg';
 import s from './Cast.module.css';
 
 function Cast() {
-  const { movieId } = useParams();
+  const { slug } = useParams();
+  const movieId = slug.match(/[a-z0-9]+$/)[0];
   const [authors, setAuthors] = useState(null);
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(Status.IDLE);

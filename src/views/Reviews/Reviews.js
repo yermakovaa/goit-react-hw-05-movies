@@ -12,7 +12,8 @@ import ErrorView from '../../components/ErrorView';
 import s from './Reviews.module.css';
 
 function Reviews() {
-  const { movieId } = useParams();
+  const { slug } = useParams();
+  const movieId = slug.match(/[a-z0-9]+$/)[0];
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
